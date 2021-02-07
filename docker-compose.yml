@@ -29,7 +29,22 @@ services:
       - 3306:3306
     volumes:
       - ./docker/mysql/data:/var/lib/mysql
-    
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: yoyaku_phpmyadmin
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=yoyaku_db
+      - PMA_USER=root
+      - PMA_PASSWORD=pAssw0rd
+    links:
+      - mysql    
+    ports:
+      - 9000:80
+    volumes:
+      - ./docker/phpmyadmin
+
   redis:
     image: redis:latest
     container_name: yoyaku_cache
